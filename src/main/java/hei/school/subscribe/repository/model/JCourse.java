@@ -25,10 +25,7 @@ import org.hibernate.annotations.UuidGenerator;
 @AllArgsConstructor
 @Builder
 public class Course {
-  @Id
-  @GeneratedValue
-  @UuidGenerator
-  private UUID id;
+  @Id @GeneratedValue @UuidGenerator private UUID id;
 
   @Column(nullable = false)
   private String title;

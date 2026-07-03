@@ -26,10 +26,7 @@ import org.hibernate.annotations.UuidGenerator;
 @AllArgsConstructor
 @Builder
 public class JUser {
-  @Id
-  @GeneratedValue
-  @UuidGenerator
-  private UUID id;
+  @Id @GeneratedValue @UuidGenerator private UUID id;
 
   @Column(nullable = false)
   private String firstName;
@@ -43,9 +40,11 @@ public class JUser {
   @Column(nullable = false, unique = true)
   private String email;
 
-  @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-  @JoinTable(name = "subscription", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
-
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinTable(
+      name = "subscription",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "course_id"))
   @Builder.Default
   private Set<Course> courses = new java.util.HashSet<>();
 }
