@@ -1,0 +1,23 @@
+CREATE TABLE "user"
+(
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  first_name VARCHAR(255),
+  last_name VARCHAR(255) NOT NULL,
+  user_name VARCHAR(255) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE course
+(
+  id UUID PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  start_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  end_date TIMESTAMP WITHOUT TIME ZONE NOT NULL
+);
+
+CREATE TABLE subscription (
+    user_id UUID NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+    course_id UUID NOT NULL REFERENCES "Course"(id) ON DELETE CASCADE,
+    subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, course_id)
+);
