@@ -24,7 +24,7 @@ import org.hibernate.annotations.UuidGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Course {
+public class JCourse {
   @Id @GeneratedValue @UuidGenerator private UUID id;
 
   @Column(nullable = false)

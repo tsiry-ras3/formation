@@ -46,5 +46,5 @@ public class JUser {
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "course_id"))
   @Builder.Default
-  private Set<Course> courses = new java.util.HashSet<>();
+  private Set<JCourse> courses = new java.util.HashSet<>();
 }
