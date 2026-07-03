@@ -1,4 +1,4 @@
-CREATE TABLE "User"
+CREATE TABLE "user"
 (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   first_name VARCHAR(255),
@@ -7,7 +7,7 @@ CREATE TABLE "User"
   email VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE "Course"
+CREATE TABLE course
 (
   id UUID PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
