@@ -1,0 +1,24 @@
+package hei.school.subscribe.endpoint.rest.controller;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import hei.school.subscribe.endpoint.rest.controller.dto.SubscriptionCreationRequest;
+import hei.school.subscribe.service.SubscriptionService;
+
+import org.springframework.http.HttpStatus;
+
+@RestController
+public class SubscribeController {
+
+    private SubscriptionService subscriptionService;
+
+    @PostMapping("/subscriptions")
+    @ResponseStatus(HttpStatus.CREATED)
+    public SubscriptionCreationRequest postSubscribe(@RequestBody SubscriptionCreationRequest request) {
+        subscriptionService.subscribe(request.userId(), request.courseId());
+        return request;
+    }
+}
