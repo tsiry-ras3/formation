@@ -1,39 +1,39 @@
-
 package hei.school.subscribe.service;
 
+import hei.school.subscribe.repository.CourseRepository;
 import hei.school.subscribe.repository.SubscriptionRepository;
 import hei.school.subscribe.repository.UserRepository;
-import hei.school.subscribe.repository.CourseRepository;
+import hei.school.subscribe.repository.model.JCourse;
 import hei.school.subscribe.repository.model.JSubscription;
 import hei.school.subscribe.repository.model.JUser;
-import hei.school.subscribe.repository.model.JCourse;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class SubscriptionService {
 
-        private final SubscriptionRepository subscriptionRepository;
-        private final UserRepository userRepository;
-        private final CourseRepository courseRepository;
+  private final SubscriptionRepository subscriptionRepository;
+  private final UserRepository userRepository;
+  private final CourseRepository courseRepository;
 
-        public JSubscription subscribe(UUID userId, UUID courseId) {
-                JUser user = userRepository.findById(userId)
-                                .orElseThrow(() -> new RuntimeException("User not found: " + userId));
-                JCourse course = courseRepository.findById(courseId)
-                                .orElseThrow(() -> new RuntimeException("Course not found: " + courseId));
+  public JSubscription subscribe(UUID userId, UUID courseId) {
+    JUser user =
+        userRepository
+            .findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found: " + userId));
+    JCourse course =
+        courseRepository
+            .findById(courseId)
+            .orElseThrow(() -> new RuntimeException("Course not found: " + courseId));
 
-                JSubscription subscription = JSubscription.builder()
-                                .user(user)
-                                .course(course)
-                                .subscribedAt(Instant.now())
-                                .build();
+    JSubscription subscription =
+        JSubscription.builder().user(user).course(course).subscribedAt(Instant.now()).build();
 
-                JSubscription saved = subscriptionRepository.save(subscription);
-        //mail
-                return saved;
-        }
+    JSubscription saved = subscriptionRepository.save(subscription);
+    // mail
+    return saved;
+  }
 }
