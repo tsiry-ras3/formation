@@ -13,15 +13,15 @@ public class ReceiptTemplate {
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Course Registration Receipt</title>
 </head>
 <!-- Body background and base font -->
 <body style="margin: 0; padding: 0; background-color: #f4f7f6; font-family: Arial, Helvetica, sans-serif; color: #333333; -webkit-font-smoothing: antialiased;">
 
 <!-- Main Outer Container (Centers the content) -->
-<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f7f6; padding: 40px 20px;">
+<table role="presentation" width="100%%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f7f6; padding: 40px 20px;">
     <tr>
     <td align="center">
 
@@ -48,8 +48,7 @@ public class ReceiptTemplate {
 
             <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #4b5563;">
                 You're successfully registered for <strong style="color: #111827;">
-                <!-- %s Placeholder 2: Course Name -->
-                %s</strong>.
+            %s</strong>.
                 Please find the details of your registration below.
             </p>
             </td>
@@ -58,7 +57,7 @@ public class ReceiptTemplate {
         <!-- 3. RECEIPT DETAILS TABLE -->
         <tr>
             <td style="padding: 0 40px 30px;">
-            <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+            <table width="100%%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
                 <!-- Table Header -->
                 <tr>
                 <td colspan="2" style="background-color: #f9fafb; padding: 15px 20px; font-size: 16px; font-weight: bold; color: #374151; border-bottom: 1px solid #e5e7eb;">
@@ -67,7 +66,7 @@ public class ReceiptTemplate {
                 </tr>
                 <!-- Row 1: Course -->
                 <tr>
-                <td style="padding: 15px 20px; font-size: 14px; color: #6b7280; border-bottom: 1px solid #f3f4f6; width: 40%;">Course</td>
+                <td style="padding: 15px 20px; font-size: 14px; color: #6b7280; border-bottom: 1px solid #f3f4f6; width: 40%%;">Course</td>
                 <td style="padding: 15px 20px; font-size: 14px; color: #111827; font-weight: bold; border-bottom: 1px solid #f3f4f6;">%s</td>
                 </tr>
                 <!-- Row 2: Status -->
@@ -82,7 +81,6 @@ public class ReceiptTemplate {
                 </tr>
             </table>
             </td>
-        </tr>d>
         </tr>
 
         <!-- 4. FOOTER -->
@@ -108,6 +106,6 @@ public class ReceiptTemplate {
 </html>
 """;
 
-    this.email = String.format(baseEmail, username, courseName);
+    this.email = String.format(baseEmail, username, courseName, courseName);
   }
 }
