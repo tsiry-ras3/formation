@@ -1,5 +1,6 @@
 package hei.school.subscribe.service;
 
+import hei.school.subscribe.exception.NotFoundException;
 import hei.school.subscribe.repository.CourseRepository;
 import hei.school.subscribe.repository.SubscriptionRepository;
 import hei.school.subscribe.repository.UserRepository;
@@ -23,11 +24,11 @@ public class SubscriptionService {
     JUser user =
         userRepository
             .findById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found: " + userId));
+            .orElseThrow(() -> new NotFoundException("User not found: " + userId));
     JCourse course =
         courseRepository
             .findById(courseId)
-            .orElseThrow(() -> new RuntimeException("Course not found: " + courseId));
+            .orElseThrow(() -> new NotFoundException("Course not found: " + courseId));
 
     JSubscription subscription =
         JSubscription.builder().user(user).course(course).subscribedAt(Instant.now()).build();
