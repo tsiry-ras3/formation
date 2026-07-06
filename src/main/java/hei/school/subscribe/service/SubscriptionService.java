@@ -3,6 +3,7 @@ package hei.school.subscribe.service;
 import hei.school.subscribe.endpoint.event.EventProducer;
 import hei.school.subscribe.endpoint.event.model.SendEmailRequested;
 import hei.school.subscribe.exception.NotFoundException;
+import hei.school.subscribe.file.bucket.BucketComponent;
 import hei.school.subscribe.repository.CourseRepository;
 import hei.school.subscribe.repository.SubscriptionRepository;
 import hei.school.subscribe.repository.UserRepository;
@@ -23,6 +24,7 @@ public class SubscriptionService {
   private final UserRepository userRepository;
   private final CourseRepository courseRepository;
   private EventProducer<SendEmailRequested> eventProducer;
+  private final BucketComponent bucketComponent;
 
 
   public JSubscription subscribe(UUID userId, UUID courseId) {
