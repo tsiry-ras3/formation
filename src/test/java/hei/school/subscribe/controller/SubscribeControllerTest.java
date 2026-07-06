@@ -1,6 +1,7 @@
 package hei.school.subscribe.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -9,6 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hei.school.subscribe.endpoint.rest.controller.SubscribeController;
 import hei.school.subscribe.endpoint.rest.controller.dto.SubscriptionCreationRequest;
+import hei.school.subscribe.endpoint.rest.controller.validator.SubscriptionCreationRequestValidator;
+import hei.school.subscribe.exception.BadRequestException;
 import hei.school.subscribe.exception.NotFoundException;
 import hei.school.subscribe.repository.model.JCourse;
 import hei.school.subscribe.repository.model.JSubscription;
@@ -26,13 +29,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(SubscribeController.class)
 class SubscribeControllerTest {
-
   @Autowired private MockMvc mockMvc;
-
   @Autowired private ObjectMapper objectMapper;
-
   @MockBean private SubscriptionService subscriptionService;
-
+  @MockBean private SubscriptionCreationRequestValidator validator;
   private UUID userId;
   private UUID courseId;
   private JSubscription subscription;
@@ -41,7 +41,6 @@ class SubscribeControllerTest {
   void setUp() {
     userId = UUID.randomUUID();
     courseId = UUID.randomUUID();
-
     JUser user =
         JUser.builder()
             .id(userId)
@@ -49,7 +48,6 @@ class SubscribeControllerTest {
             .lastName("Rakoto")
             .email("zety.rakoto@example.com")
             .build();
-
     JCourse course =
         JCourse.builder()
             .id(courseId)
@@ -57,7 +55,6 @@ class SubscribeControllerTest {
             .startDate(Instant.now())
             .endDate(Instant.now().plusSeconds(3600))
             .build();
-
     subscription =
         JSubscription.builder()
             .id(UUID.randomUUID())
@@ -70,9 +67,7 @@ class SubscribeControllerTest {
   @Test
   void should_return_201_when_subscription_succeeds() throws Exception {
     when(subscriptionService.subscribe(any(UUID.class), any(UUID.class))).thenReturn(subscription);
-
     SubscriptionCreationRequest request = new SubscriptionCreationRequest(userId, courseId);
-
     mockMvc
         .perform(
             post("/subscriptions")
@@ -87,9 +82,7 @@ class SubscribeControllerTest {
   void should_return_404_when_user_not_found() throws Exception {
     when(subscriptionService.subscribe(any(UUID.class), any(UUID.class)))
         .thenThrow(new NotFoundException("User not found: " + userId));
-
     SubscriptionCreationRequest request = new SubscriptionCreationRequest(userId, courseId);
-
     mockMvc
         .perform(
             post("/subscriptions")
@@ -100,6 +93,7 @@ class SubscribeControllerTest {
 
   @Test
   void should_return_400_when_body_is_invalid() throws Exception {
+    doThrow(new BadRequestException("userId must not be null")).when(validator).validate(any());
     mockMvc
         .perform(post("/subscriptions").contentType(MediaType.APPLICATION_JSON).content("{}"))
         .andExpect(status().isBadRequest());
