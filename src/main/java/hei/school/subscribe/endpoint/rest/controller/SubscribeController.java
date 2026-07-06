@@ -20,7 +20,7 @@ public class SubscribeController {
 
   private SubscriptionService subscriptionService;
   private SubscriptionCreationRequestValidator validator;
-  private final EventProducer<SendEmailRequested> eventProducer;
+  private EventProducer<SendEmailRequested> eventProducer;
 
   @PostMapping("/subscriptions")
   @ResponseStatus(HttpStatus.CREATED)
