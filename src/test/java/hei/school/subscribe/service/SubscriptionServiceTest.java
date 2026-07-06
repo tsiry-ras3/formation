@@ -5,12 +5,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import hei.school.subscribe.endpoint.event.EventProducer;
+import hei.school.subscribe.endpoint.event.model.SendEmailRequested;
+import hei.school.subscribe.file.bucket.BucketComponent;
 import hei.school.subscribe.repository.CourseRepository;
 import hei.school.subscribe.repository.SubscriptionRepository;
 import hei.school.subscribe.repository.UserRepository;
 import hei.school.subscribe.repository.model.JCourse;
 import hei.school.subscribe.repository.model.JSubscription;
 import hei.school.subscribe.repository.model.JUser;
+import java.net.URL;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +35,10 @@ class SubscriptionServiceTest {
   @Mock private UserRepository userRepository;
 
   @Mock private CourseRepository courseRepository;
+
+  @Mock private EventProducer<SendEmailRequested> eventProducer;
+
+  @Mock private BucketComponent bucketComponent;
 
   @InjectMocks private SubscriptionService subscriptionService;
 
@@ -62,6 +71,11 @@ class SubscriptionServiceTest {
 
   @Test
   void should_subscribe_user_to_course() {
+    var mockUrl = mock(URL.class);
+    when(mockUrl.toString()).thenReturn("http://example.com/receipt");
+    when(bucketComponent.upload(any(), anyString())).thenReturn(null);
+    when(bucketComponent.presign(anyString(), any(Duration.class))).thenReturn(mockUrl);
+
     when(userRepository.findById(userId)).thenReturn(Optional.of(user));
     when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
     when(subscriptionRepository.save(any(JSubscription.class)))
