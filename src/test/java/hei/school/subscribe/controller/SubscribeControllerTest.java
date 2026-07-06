@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import hei.school.subscribe.endpoint.event.EventProducer;
 import hei.school.subscribe.endpoint.event.model.SendEmailRequested;
 import hei.school.subscribe.endpoint.rest.controller.SubscribeController;
@@ -37,7 +36,7 @@ class SubscribeControllerTest {
   @MockBean private SubscriptionService subscriptionService;
   @MockBean private SubscriptionCreationRequestValidator validator;
   @MockBean private EventProducer<SendEmailRequested> eventProducer;
-  
+
   private UUID userId;
   private UUID courseId;
   private JSubscription subscription;
