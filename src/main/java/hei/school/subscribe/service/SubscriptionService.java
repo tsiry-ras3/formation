@@ -35,7 +35,6 @@ public class SubscriptionService {
   private final CourseRepository courseRepository;
   private final EventProducer<SendEmailRequested> eventProducer;
   private final BucketComponent bucketComponent;
-  private ReceiptTemplate receiptTemplate;
 
   public JSubscription subscribe(UUID userId, UUID courseId) {
     JUser user =
@@ -52,7 +51,7 @@ public class SubscriptionService {
 
     JSubscription saved = subscriptionRepository.save(subscription);
 
-    receiptTemplate = new ReceiptTemplate(user.getUserName(), course.getTitle());
+    ReceiptTemplate receiptTemplate = new ReceiptTemplate(user.getUserName(), course.getTitle());
 
     String receiptUrl =
         uploadReceipt(

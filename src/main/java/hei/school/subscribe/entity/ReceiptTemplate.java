@@ -1,10 +1,8 @@
 package hei.school.subscribe.entity;
 
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
 @Getter
-@Component
 public class ReceiptTemplate {
 
   private String email;
