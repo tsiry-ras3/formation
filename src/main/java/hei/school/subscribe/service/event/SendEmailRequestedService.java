@@ -37,7 +37,7 @@ public class SendEmailRequestedService implements Consumer<SendEmailRequested> {
 
                 <p>Please find below the receipt as a confirmation of your registration</p>
 
-                <p>[< a href="%s">Receipt link </a>]</p>
+                <a href="%s">Receipt link </a>
 
               </body>
               </html>
